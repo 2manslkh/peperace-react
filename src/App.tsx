@@ -1,41 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import twaLogo from './assets/tapps.png'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-import WebApp from '@twa-dev/sdk'
+// import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://ton.org/dev" target="_blank">
-          <img src={twaLogo} className="logo" alt="TWA logo" />
-        </a>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="pepe-racing">
+      <h1>Pepe Racing</h1>
+      <div className="card-row">
+        <Card suit="hearts" letter="P" />
+        <Card suit="clubs" letter="E" />
+        <Card suit="diamonds" letter="P" />
+        <Card suit="spades" letter="E" />
+        <Card icon="🐸" />
+        <Card suit="hearts" letter="P" />
       </div>
-      <h1>TWA + Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-      {/*  */}
-      <div className="card">
-        <button onClick={() => WebApp.showAlert(`Hello World! Current count is ${count}`)}>
-            Show Alert
-        </button>
-      </div>
-    </>
-  )
+      <button className="connect-button">Connect</button>
+    </div>
+  );
 }
 
-export default App
+function Card({
+  suit,
+  letter,
+  icon,
+}: {
+  suit?: string;
+  letter?: string;
+  icon?: string;
+}) {
+  const getSuitSymbol = (suit: string) => {
+    switch (suit) {
+      case "hearts":
+        return "♥️";
+      case "clubs":
+        return "♣️";
+      case "diamonds":
+        return "♦️";
+      case "spades":
+        return "♠️";
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="card">
+      {icon ? (
+        <span className="card-icon">{icon}</span>
+      ) : (
+        <>
+          <span className="card-suit">{getSuitSymbol(suit || "")}</span>
+          <span className="card-letter">{letter}</span>
+        </>
+      )}
+    </div>
+  );
+}
+
+export default App;
